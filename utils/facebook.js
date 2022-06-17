@@ -12,10 +12,6 @@ export function initFacebookSdk() {
         xfbml: true,
         version: "v14.0",
       });
-
-      FB.getLoginStatus(function (response) {
-        console.log(response);
-      });
     };
 
     // load facebook sdk script
@@ -33,21 +29,50 @@ export function initFacebookSdk() {
   });
 }
 
-export async function loginFacebook() {
-  FB.login(function (response) {
-    if (response.authResponse) {
-      console.log("Welcome!  Fetching your information.... ");
-      FB.api("/me", function (response) {
-        console.log("Good to see you, " + response.name + ".");
-      });
-    } else {
-      console.log("User cancelled login or did not fully authorize.");
+export function getStatusFacebook(setUserId) {
+  FB.getLoginStatus(function (response) {
+    const { authResponse } = response;
+    if (authResponse) {
+      setUserId(authResponse.userID);
+      return;
+    }
+    setUserId(null);
+  });
+}
+
+export function loginFacebook() {
+  FB.login(
+    function (response) {
+      if (response.authResponse) {
+        console.log("Welcome!  Fetching your information.... ");
+        FB.api("/me", function (response) {
+          console.log(
+            "Good to see you, " +
+              response.name +
+              " with id: " +
+              response.id +
+              "."
+          );
+        });
+      } else {
+        console.log("User cancelled login or did not fully authorize.");
+      }
+    },
+    { perms: "pages_show_list" }
+  );
+}
+
+export function getPages(userId, setPages) {
+  FB.api(`/${userId}/accounts`, function (response) {
+    if (response && !response.error) {
+      setPages(response);
     }
   });
 }
 
 export function logoutFacebook() {
-  FB.ui({ method: "auth.logout" }, function () {
+  FB.logout(function (response) {
+    console.log(response);
     window.location.reload();
   });
 }

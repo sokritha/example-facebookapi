@@ -22,6 +22,17 @@
     "isPaid": false
   },
   {
+    "customer": "John Lou",
+    "phoneNumber": "012111222",
+    "location": "Phnom Penh",
+    "codeItem": "#0001",
+    "price": 8000,
+    "amount": 8,
+    "commentedAt": "2022-06-15",
+    "paidDate": "2022-06-15",
+    "isPaid": true
+  },
+  {
     "customer": "Alice Joe",
     "phoneNumber": "012345678",
     "location": "Phnom Penh",

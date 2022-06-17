@@ -1,18 +1,12 @@
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Link from "next/link";
 
-import { loginFacebook, logoutFacebook } from "../utils/facebook";
+import { loginFacebook, logoutFacebook, getPages } from "../utils/facebook";
 
 export default function Home() {
-  const handleOnLoginFacebook = () => {
-    loginFacebook();
-  };
-
-  const handleOnLogoutFacebook = () => {
-    logoutFacebook();
-  };
-
   return (
     <div className={styles.container}>
       <Head>
@@ -32,12 +26,12 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
-          <a className={styles.card} onClick={handleOnLoginFacebook}>
+          <a className={styles.card} onClick={loginFacebook}>
             <h2>Log in to Facebook &rarr;</h2>
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
-          <a className={styles.card} onClick={handleOnLogoutFacebook}>
+          <a className={styles.card} onClick={logoutFacebook}>
             <h2>Logout From Facebook &rarr;</h2>
             <p>Learn about Next.js in an interactive course with quizzes!</p>
           </a>
@@ -59,6 +53,15 @@ export default function Home() {
               Instantly deploy your Next.js site to a public URL with Vercel.
             </p>
           </a>
+
+          <Link href="/pages">
+            <a className={styles.card}>
+              <h2>Facebook Pages &rarr;</h2>
+              <p>
+                Instantly deploy your Next.js site to a public URL with Vercel.
+              </p>
+            </a>
+          </Link>
         </div>
       </main>
 
